@@ -16,7 +16,7 @@ class DashboardLayout extends StatelessWidget {
       child: Column(
         children: [
           _headerWidget(context),
-          const SizedBox(height: kSpacing),
+          const SizedBox(height: 24),
          DashboardSummary(),
           const SizedBox(height: kSpacing),
 
