@@ -1,0 +1,32 @@
+lib/
+│── main.dart              # Entry point
+│
+├── core/                  # App-wide constants & utilities
+│   ├── theme/             # Colors, typography, ThemeData
+│   ├── utils/             # Helpers, formatters, validators
+│   ├── layout/         
+│   │   └── layout.dart   # Global layout wrapper
+│   └── constants.dart
+│
+├── models/                # Data models / entities
+│
+├── services/              # API, local storage, auth, DB
+│
+├── providers/             # State management (Riverpod, Provider, etc.)
+│
+├── features/              # Group by feature/module
+│   ├── auth/
+│   │   ├── screens/       # Login, Register UI
+│   │   ├── widgets/       # Auth-related widgets
+│   │   └── providers/     # Auth-specific providers
+│   │
+│   ├── dashboard/
+│   │   ├── screens/
+│   │   ├── widgets/
+│   │   └── providers/
+│   │
+│   └── profile/ ...
+│
+├── widgets/               # Shared reusable widgets (buttons, cards, etc.)
+│
+└── routes/                # App routes (GoRouter / Navigator)
