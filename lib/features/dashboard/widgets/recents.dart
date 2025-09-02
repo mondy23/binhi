@@ -27,10 +27,10 @@ class Recents extends StatelessWidget {
               children: [
                 Text(
                   "Recent Activity",
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
+                  // style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  //       fontWeight: FontWeight.bold,
+                  //       fontSize: 16,
+                  //     ),
                 ),
                 Text(
                   "${activities.length} items",

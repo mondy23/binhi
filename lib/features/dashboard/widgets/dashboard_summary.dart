@@ -6,7 +6,7 @@ class DashboardSummary extends StatelessWidget {
   Widget _buildStatCard({
     required String title,
     required String value,
-    required IconData icon,
+    required String iconUrl,
     required Color primary,
   }) {
     return SizedBox(
@@ -32,7 +32,7 @@ class DashboardSummary extends StatelessWidget {
             CircleAvatar(
               backgroundColor: primary.withOpacity(0.1),
               radius: 22,
-              child: Icon(icon, color: primary, size: 22),
+              child: Image.asset(iconUrl, color: primary,),
             ),
             const SizedBox(width: 12),
             Column(
@@ -74,7 +74,7 @@ class DashboardSummary extends StatelessWidget {
           child: _buildStatCard(
             title: "Total Released Points",
             value: "120,000",
-            icon: Icons.arrow_upward,
+            iconUrl: 'assets/icons/UpwardTrend.png',
             primary: primary,
           ),
         ),
@@ -83,7 +83,7 @@ class DashboardSummary extends StatelessWidget {
           child: _buildStatCard(
             title: "Total Redeemed Points",
             value: "85,000",
-            icon: Icons.shopping_cart,
+            iconUrl: 'assets/icons/DownwardTrend.png',
             primary: primary,
           ),
         ),
@@ -92,7 +92,7 @@ class DashboardSummary extends StatelessWidget {
           child: _buildStatCard(
             title: "Total Expired Points",
             value: "5,300",
-            icon: Icons.cancel,
+            iconUrl: 'assets/icons/Activity.png',
             primary: primary,
           ),
         ),
@@ -101,7 +101,7 @@ class DashboardSummary extends StatelessWidget {
           child: _buildStatCard(
             title: "Total Customers",
             value: "1,240",
-            icon: Icons.people,
+            iconUrl: 'assets/icons/Customers.png',
             primary: primary,
           ),
         ),

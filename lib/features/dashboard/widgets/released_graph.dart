@@ -23,7 +23,7 @@ class ReleasedGraph extends StatelessWidget {
           children: [
             Text(
               releasedData.label,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              // style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
             Expanded(
