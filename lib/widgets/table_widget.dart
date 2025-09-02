@@ -1,4 +1,5 @@
 import 'package:binhi/core/constants.dart';
+import 'package:binhi/widgets/custom_container.dart';
 import 'package:flutter/material.dart';
 
 class CustomTable extends StatelessWidget {
@@ -15,18 +16,7 @@ class CustomTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: secondary,
-        borderRadius: BorderRadius.circular(30),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
+    return CustomContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -37,7 +27,7 @@ class CustomTable extends StatelessWidget {
             const SizedBox(height: 16),
           ],
           ClipRRect(
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(16),
             child: LayoutBuilder(
               builder: (context, constraints) => ConstrainedBox(
                 constraints: BoxConstraints(

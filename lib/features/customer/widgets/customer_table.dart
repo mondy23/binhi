@@ -9,10 +9,10 @@ class CustomerTable extends StatelessWidget {
     return CustomTable(
       columns: const [
         DataColumn(label: Text("ID")),
-        DataColumn(label: Text("Name")),
-        DataColumn(label: Text("Email")),
         DataColumn(label: Text("Points")),
-        DataColumn(label: Text("Status")),
+        DataColumn(label: Text("Rank")),
+        DataColumn(label: Text("Progress")),
+        DataColumn(label: Text("Joined")),
       ],
       rows: const [
         DataRow(
