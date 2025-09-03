@@ -75,6 +75,7 @@ class LineChartCard extends StatelessWidget {
                 borderData: FlBorderData(show: false),
                 lineBarsData: [
                   LineChartBarData(
+                    isCurved: true,
                     color: primary,
                     barWidth: 2.5,
                     belowBarData: BarAreaData(
@@ -82,7 +83,10 @@ class LineChartCard extends StatelessWidget {
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: [primary.withOpacity(0.5), primary.withOpacity(.1)],
+                        colors: [
+                          primary.withOpacity(0.5),
+                          primary.withOpacity(.1),
+                        ],
                       ),
                     ),
                     dotData: FlDotData(show: false),
@@ -103,7 +107,6 @@ class LineChartCard extends StatelessWidget {
     );
   }
 }
-
 
 class LineData {
   final spots = [

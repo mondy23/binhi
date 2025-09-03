@@ -1,6 +1,9 @@
+import 'package:binhi/core/helper/helper.dart';
+import 'package:binhi/providers/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DashboardSummary extends StatelessWidget {
+class DashboardSummary extends ConsumerWidget {
   const DashboardSummary({super.key});
 
   Widget _buildStatCard({
@@ -32,7 +35,7 @@ class DashboardSummary extends StatelessWidget {
             CircleAvatar(
               backgroundColor: primary.withOpacity(0.1),
               radius: 22,
-              child: Image.asset(iconUrl, color: primary,),
+              child: Image.asset(iconUrl, color: primary),
             ),
             const SizedBox(width: 12),
             Column(
@@ -65,47 +68,54 @@ class DashboardSummary extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final primary = Theme.of(context).primaryColor;
+    final summary = ref.watch(businessSummaryProvider);
 
-    return Row(
-      children: [
-        Expanded(
-          child: _buildStatCard(
-            title: "Total Released Points",
-            value: "120,000",
-            iconUrl: 'assets/icons/UpwardTrend.png',
-            primary: primary,
-          ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: _buildStatCard(
-            title: "Total Redeemed Points",
-            value: "85,000",
-            iconUrl: 'assets/icons/DownwardTrend.png',
-            primary: primary,
-          ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: _buildStatCard(
-            title: "Total Expired Points",
-            value: "5,300",
-            iconUrl: 'assets/icons/Activity.png',
-            primary: primary,
-          ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: _buildStatCard(
-            title: "Total Customers",
-            value: "1,240",
-            iconUrl: 'assets/icons/Customers.png',
-            primary: primary,
-          ),
-        ),
-      ],
+    return summary.when(
+      data: (data) {
+        return Row(
+          children: [
+            Expanded(
+              child: _buildStatCard(
+                title: "Total Released Points",
+                value:  Numberformatter.format(data.totalReleased),
+                iconUrl: 'assets/icons/UpwardTrend.png',
+                primary: primary,
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: _buildStatCard(
+                title: "Total Redeemed Points",
+                value:  Numberformatter.format(data.totalRedeemed),
+                iconUrl: 'assets/icons/DownwardTrend.png',
+                primary: primary,
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: _buildStatCard(
+                title: "Total Expired Points",
+                value: "0",
+                iconUrl: 'assets/icons/Activity.png',
+                primary: primary,
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: _buildStatCard(
+                title: "Total Customers",
+                value: Numberformatter.format(data.totalUsers),
+                iconUrl: 'assets/icons/Customers.png',
+                primary: primary,
+              ),
+            ),
+          ],
+        );
+      },
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (err, stack) => Center(child: Text("Error: $err")),
     );
   }
 }

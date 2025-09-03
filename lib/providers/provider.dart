@@ -1,16 +1,75 @@
+import 'package:binhi/core/helper/helper.dart';
+import 'package:binhi/models/business_summary_model.dart';
 import 'package:binhi/models/navbar_items.dart';
+import 'package:binhi/models/points_entry_model.dart';
+import 'package:binhi/models/recent_activity.dart';
 import 'package:binhi/services/dio_client.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final dioClientProvider = Provider<DioClient>((ref) => DioClient());
 
+
+
+final isNavBarOpenProvider = StateProvider<bool>((ref) => true);
 final navbarItemsProvider = FutureProvider<List<NavbarItem>>((ref) async {
   final dio = ref.watch(dioClientProvider);
-
-  final response = await dio.get("/draweItems");
+  final response = await dio.get("/api/private/v1/menu");
   final List<dynamic> data = response.data;
-
   return data.map((e) => NavbarItem.fromJson(e)).toList();
 });
 
-final isNavBarOpenProvider = StateProvider<bool>((ref) => true);
+
+// Dashboard UI
+final businessSummaryProvider = FutureProvider<BusinessSummary>((ref) async {
+  final dio = ref.watch(dioClientProvider);
+  final response = await dio.get('/api/private/v1/businesses/1/summary');
+  final data = response.data as Map<String, dynamic>;
+  return BusinessSummary.fromJson(data);
+});
+
+final recentActivityProvider = FutureProvider<ActivityResponse>((ref) async {
+  final dio = ref.watch(dioClientProvider);
+  final response = await dio.get('/api/private/v1/admin/recent-activity?business_id=1');
+  final data = response.data as Map<String, dynamic>;
+  return ActivityResponse.fromJson(data);
+});
+
+final redeemChartProvider = FutureProvider<List<PointsEntry>>((ref) async {
+  final dio = ref.watch(dioClientProvider);
+  final dates = DateUtils.currentWeekDates();
+  final startDate = dates[0];
+  final endDate = dates[1];
+
+  final response = await dio.get(
+    '/api/private/v1/linechart/redeemed',
+    queryParams: {
+      'start_date': startDate,
+      'end_date': endDate,
+      'business_id': 1,
+    },
+  );
+
+  final data = response.data as List<dynamic>;
+  return data.map((e) => PointsEntry.fromJson(e as Map<String, dynamic>)).toList();
+});
+
+final releaseChartProvider = FutureProvider<List<PointsEntry>>((ref) async {
+  final dio = ref.watch(dioClientProvider);
+  final dates = DateUtils.currentWeekDates();
+  final startDate = dates[0];
+  final endDate = dates[1];
+
+  final response = await dio.get(
+    '/api/private/v1/linechart/released',
+    queryParams: {
+      'start_date': startDate,
+      'end_date': endDate,
+      'business_id': 1,
+    },
+  );
+
+  final data = response.data as List<dynamic>;
+  return data.map((e) => PointsEntry.fromJson(e as Map<String, dynamic>)).toList();
+});
+
+

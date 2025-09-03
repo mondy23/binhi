@@ -2,12 +2,13 @@ import 'package:dio/dio.dart';
 
 class DioClient {
   final Dio _dio;
-  static const String _baseUrl = 'https://670c66217e5a228ec1d0361f.mockapi.io/';
-  //'http://127.0.0.1:15001';
+  static const String _baseUrl = 'http://127.0.0.1:15001';
+  //'https://670c66217e5a228ec1d0361f.mockapi.io/';
+
   //'https://bakawan-reward-system.fortress-asya.com';
 
   static const String _authToken =
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6MSwiZXhwIjoxNzU2NDI3NjMxLCJ1c2VybmFtZSI6ImFkbWluMDAxMSJ9.QDqtojOKnagv2SYB1oBuDgnufwhYjg60grqknOCH1Dg';
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6MSwiZXhwIjoxNzU3MTE5NzU3LCJ1c2VybmFtZSI6ImFkbWluMDAxMSJ9.r6Tb4q_sWuad3UICS8gk551o0TDO08FLPesuubGOEqo';
   DioClient({String baseUrl = _baseUrl, String? token})
     : _dio = Dio(
         BaseOptions(
