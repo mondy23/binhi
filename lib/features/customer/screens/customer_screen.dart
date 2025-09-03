@@ -1,4 +1,6 @@
 import 'package:binhi/features/customer/widgets/customer_table.dart';
+import 'package:binhi/features/customer/widgets/customers_linechart.dart';
+import 'package:binhi/features/customer/widgets/top_earners.dart';
 import 'package:flutter/material.dart';
 
 class CustomerScreen extends StatelessWidget {
@@ -9,9 +11,17 @@ class CustomerScreen extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 8, bottom: 8),
-        child: Row(
+        child: Column(
           children: [
-            Expanded(flex: 2, child: CustomerTable()),
+            Row(
+              children: [
+                Expanded(flex: 2, child: CustomerLineChartCard()),
+                SizedBox(width: 16,),
+                Expanded(child: TopEarners())
+              ],
+            ),
+            SizedBox(height: 16,),
+            Expanded(child: CustomerTable()),
           ],
         ),
       ),

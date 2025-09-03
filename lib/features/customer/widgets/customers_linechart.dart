@@ -5,8 +5,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LineChartCard extends ConsumerWidget {
-  const LineChartCard({super.key});
+class CustomerLineChartCard extends ConsumerWidget {
+  const CustomerLineChartCard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,7 +23,7 @@ class LineChartCard extends ConsumerWidget {
           ),
           const SizedBox(height: 16),
           SizedBox(
-            height: 340,
+            height: 240,
             child: customerAsync.when(
               data: (points) {
                 if (points.isEmpty) {

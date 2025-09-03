@@ -82,7 +82,7 @@ class Recents extends ConsumerWidget {
                           ),
                         ),
                         title: Text(
-                          "${isEarned
+                          "${activity.rewardAccountID} ${isEarned
                               ? 'earned'
                               : isRedeemed
                               ? 'redeemed'

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:intl/intl.dart';
 final Numberformatter = NumberFormat.compact();
 
@@ -36,3 +38,30 @@ class DateUtils {
     return [formatter.format(monday), formatter.format(sunday)];
   }
 }
+
+  String getRank(int points) {
+    if (points >= 1000) return "Platinum";
+    if (points >= 750) return "Gold";
+    if (points >= 500) return "Silver";
+    return "Bronze";
+  }
+
+ Color getRankColor(String rank) {
+  switch (rank) {
+    case "Platinum":
+      return const Color(0xFF6A5ACD); // soft royal purple
+    case "Gold":
+      return const Color(0xFFFFC107); // warm gold
+    case "Silver":
+      return const Color(0xFF9E9E9E); // sleek silver gray
+    case "Bronze":
+    default:
+      return const Color(0xFFCD7F32); // bronze copper
+  }
+}
+
+
+  double getProgress(int points) {
+    const maxPoints = 1000; // adjustable threshold
+    return (points / maxPoints).clamp(0, 1).toDouble();
+  }
