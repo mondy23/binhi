@@ -1,5 +1,6 @@
 
 import 'package:binhi/core/constants.dart';
+import 'package:binhi/core/layout/widgets/top_appbar.dart';
 import 'package:binhi/features/dashboard/widgets/customers_linechart.dart';
 import 'package:binhi/features/dashboard/widgets/dashboard_summary.dart';
 import 'package:binhi/features/dashboard/widgets/recents.dart';
@@ -15,6 +16,7 @@ class DashboardLayout extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
+          TopAppbar(title: 'Dashboard',),
           _headerWidget(context),
           const SizedBox(height: 24),
          DashboardSummary(),

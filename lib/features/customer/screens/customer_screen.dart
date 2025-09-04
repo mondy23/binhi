@@ -1,3 +1,4 @@
+import 'package:binhi/core/layout/widgets/top_appbar.dart';
 import 'package:binhi/features/customer/widgets/customer_table.dart';
 import 'package:binhi/features/customer/widgets/customers_linechart.dart';
 import 'package:binhi/features/customer/widgets/top_earners.dart';
@@ -13,6 +14,7 @@ class CustomerScreen extends StatelessWidget {
         padding: const EdgeInsets.only(top: 8, bottom: 8),
         child: Column(
           children: [
+            TopAppbar(title: 'Customers',),
             Row(
               children: [
                 Expanded(flex: 2, child: CustomerLineChartCard()),

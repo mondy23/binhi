@@ -1,64 +1,111 @@
-import 'package:binhi/core/constants.dart';
-import 'package:binhi/widgets/custom_container.dart';
+import 'package:binhi/widgets/custom_pagination.dart';
 import 'package:flutter/material.dart';
 
 class CustomTable extends StatelessWidget {
-  final List<DataColumn> columns;
-  final List<DataRow> rows;
-  final String? title;
+  final List<DataColumn> col;
+  final List<DataRow> row;
+  final String title;
+  final int currentPage;
+  final int totalPages;
+  final ValueChanged<int> onPageChanged;
+  final ValueChanged<String> onSearchChanged;
+  final String total;
 
   const CustomTable({
     super.key,
-    required this.columns,
-    required this.rows,
-    this.title,
+    required this.col,
+    required this.row,
+    required this.title,
+    required this.currentPage,
+    required this.totalPages,
+    required this.onPageChanged,
+    required this.onSearchChanged,
+    this.total = '',
   });
 
   @override
+  @override
   Widget build(BuildContext context) {
-    return CustomContainer(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (title != null) ...[
-            Text(
-              title!,
-            ),
-            const SizedBox(height: 16),
-          ],
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: LayoutBuilder(
-              builder: (context, constraints) => ConstrainedBox(
-                constraints: BoxConstraints(
-                  minWidth: constraints.maxWidth,
-                ),
-                child: DataTable(
-                  headingRowColor:
-                      MaterialStateProperty.all(primary.withOpacity(0.08)),
-                  dataRowColor: MaterialStateProperty.all(
-                    Colors.white.withOpacity(0.02),
+    final colorScheme = Theme.of(context).colorScheme;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Title and Search Row
+              Row(
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      color: colorScheme.secondary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
+                    ),
                   ),
-                  border: TableBorder.symmetric(
-                    inside: BorderSide(color: Colors.grey.shade200, width: 0.7),
+                  SizedBox(width: 8,),
+                  Text(
+                    total,
+                    style: TextStyle(
+                      color: colorScheme.primary,
+                      fontSize: 18,
+          
+                    ),
                   ),
-                  columnSpacing: 32,
-                  headingTextStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: primary,
+                ],
+              ),
+              ConstrainedBox(
+                constraints: BoxConstraints(minWidth: constraints.maxWidth),
+                child: Theme(
+                  data: Theme.of(context).copyWith(
+                    dataTableTheme: const DataTableThemeData(
+                      dividerThickness: 0,
+                    ),
+                  ),
+                  child: DataTable(
+                    showCheckboxColumn: false,
+                    headingTextStyle: const TextStyle(fontSize: 16),
+                    border: TableBorder(
+                      horizontalInside: BorderSide(
+                        width: 1.5,
+                        color: Colors.grey.shade200,
                       ),
-                  dataTextStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Colors.black87,
-                      ),
-                  dividerThickness: 0.7,
-                  columns: columns,
-                  rows: rows,
+                    ),
+                    columns: col,
+                    rows: row,
+                  ),
                 ),
               ),
-            ),
+          
+              const SizedBox(height: 24),
+          
+              // Pagination
+              Align(
+                alignment: Alignment.centerRight,
+                child: CustomPagination(
+                  currentPage: currentPage,
+                  totalPages: totalPages,
+                  onPageChanged: onPageChanged,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
+}
+
+int getMaxItem(BoxConstraints constraints, {int approxHeader = 150}) {
+  const int itemHeight = 54; // default row height
+  final double usableHeight =
+      constraints.maxHeight - approxHeader; // approx padding/header
+  final int itemCount = (usableHeight ~/ itemHeight).clamp(1, 100); // min 1
+  return itemCount;
+}
+
+int getTotalPages(int totalItems, int limit) {
+  if (limit == 0) return 1; // avoid division by zero
+  return (totalItems / limit).ceil();
 }

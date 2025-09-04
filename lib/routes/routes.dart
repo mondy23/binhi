@@ -1,5 +1,6 @@
 
 import 'package:binhi/core/layout/layout.dart';
+import 'package:binhi/features/admin/screens/admin_screen.dart';
 import 'package:binhi/features/customer/screens/customer_screen.dart';
 import 'package:binhi/features/dashboard/screens/dashboard_layout.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ final GoRouter routes = GoRouter(
           ),
         ),
         GoRoute(
-          path: '/customer',
+          path: '/customers',
           pageBuilder: (context, state) {
             return _fadeTransitionPage(
               key: state.pageKey,
@@ -37,11 +38,11 @@ final GoRouter routes = GoRouter(
           },
         ),
           GoRoute(
-          path: '/admin',
+          path: '/merchants',
           pageBuilder: (context, state) {
             return _fadeTransitionPage(
               key: state.pageKey,
-              child: CustomerScreen(),
+              child: MerchantScreen(),
             );
           },
         ),

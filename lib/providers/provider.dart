@@ -9,6 +9,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final dioClientProvider = Provider<DioClient>((ref) => DioClient());
 
+final CurrentScreenPage = StateProvider<String>((ref) => 'Dashboard');
+
+
 final isNavBarOpenProvider = StateProvider<bool>((ref) => true);
 final navbarItemsProvider = FutureProvider<List<NavbarItem>>((ref) async {
   final dio = ref.watch(dioClientProvider);

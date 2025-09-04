@@ -1,6 +1,5 @@
 
 import 'package:binhi/core/layout/widgets/navbar.dart';
-import 'package:binhi/core/layout/widgets/top_appbar.dart';
 import 'package:flutter/material.dart';
 
 class Layout extends StatelessWidget {
@@ -18,7 +17,6 @@ class Layout extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
                 children: [
-                  TopAppbar(),
                   Expanded(child: child),
                 ],
               ),

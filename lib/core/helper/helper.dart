@@ -65,3 +65,23 @@ class DateUtils {
     const maxPoints = 1000; // adjustable threshold
     return (points / maxPoints).clamp(0, 1).toDouble();
   }
+
+  String formatRoute(String route) {
+    if (route == '/') {
+      return 'Dashboard';
+    }
+  // Remove leading "/"
+  final cleaned = route.replaceFirst("/", "");
+
+  // Split by "/" if nested route
+  final parts = cleaned.split("/");
+
+  // Capitalize each part
+  final capitalized = parts.map((part) {
+    if (part.isEmpty) return "";
+    return part[0].toUpperCase() + part.substring(1);
+  }).join(" ");
+
+  return capitalized;
+}
+
