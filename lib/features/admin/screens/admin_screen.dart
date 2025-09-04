@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'package:binhi/core/constants.dart';
 import 'package:binhi/core/layout/widgets/top_appbar.dart';
 import 'package:binhi/widgets/custom_container.dart';
 import 'package:flutter/material.dart';
@@ -9,40 +9,84 @@ class MerchantScreen extends StatelessWidget {
   final String defaultProfile =
       "https://cdn-icons-png.flaticon.com/512/3135/3135715.png";
 
-  // Solid background colors to pick from
- final List<Color> bgColors = const [
-  Color(0xFF93C5FD), // soft blue
-  Color(0xFF6EE7B7), // soft green
-  Color(0xFFFCD34D), // soft amber
-  Color(0xFFA78BFA), // soft purple
-  Color(0xFFFCA5A5), // soft red/pink
-  Color(0xFF67E8F9), // soft cyan/teal
-];
-
-
   @override
   Widget build(BuildContext context) {
-    final random = Random();
 
     return Scaffold(
       body: Column(
         children: [
           const TopAppbar(title: 'Merchants'),
+
+          // 🔍 Search + ➕ Add button (8pt spacing)
+          Row(
+            children: [
+              // Search bar
+              Expanded(
+                child: // 🔍 Search bar with shadow + border
+Container(
+  decoration: BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(8), // 1*8
+    border: Border.all(color: Colors.grey.shade200, width: 1.5),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.grey.withOpacity(0.08),
+        spreadRadius: 1,
+        blurRadius: 6,
+        offset: const Offset(0, 3),
+      ),
+    ],
+  ),
+  child: TextField(
+    decoration: InputDecoration(
+      hintText: "Search merchants...",
+      hintStyle: TextStyle(color: Colors.black.withOpacity(0.5), fontSize: 16),
+      prefixIcon: Icon(Icons.search, color: Colors.black.withOpacity(0.5),),
+      border: InputBorder.none, // remove default border
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: 16, // 2*8
+        vertical: 12,   // 1.5*8
+      ),
+    ),
+  ),
+)
+
+              ),
+              const SizedBox(width: 16), // 2*8
+          
+              // Add button
+              ElevatedButton.icon(
+                onPressed: () {
+                  // TODO: Handle add merchant
+                },
+                icon: const Icon(Icons.add),
+                label: const Text("Add Merchant"),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16, // 2*8
+                    vertical: 16,   // 2*8
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8), // 1*8
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: kSpacing,),
+          // Merchant Grid
           Expanded(
             child: GridView.builder(
-              padding: const EdgeInsets.all(16),
               itemCount: 6,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
+                crossAxisSpacing: 16, // 2*8
+                mainAxisSpacing: 16,  // 2*8
                 childAspectRatio: 3 / 4,
               ),
               itemBuilder: (context, index) {
-                final bgColor = bgColors[random.nextInt(bgColors.length)];
-
                 return CustomContainer(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16), // 2*8
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -51,24 +95,24 @@ class MerchantScreen extends StatelessWidget {
                         clipBehavior: Clip.none,
                         children: [
                           Container(
-                            height: 80,
+                            height: 80, // 10*8
                             decoration: BoxDecoration(
-                              color: bgColor,
-                              borderRadius: BorderRadius.circular(8),
+                              color: blue,
+                              borderRadius: BorderRadius.circular(8), // 1*8
                             ),
                           ),
                           Positioned(
-                            bottom: -24,
-                            left: 16,
+                            bottom: -24, // 3*8
+                            left: 16,    // 2*8
                             child: CircleAvatar(
-                              radius: 28,
+                              radius: 28, // 3.5*8
                               backgroundColor: Colors.white,
                               backgroundImage: NetworkImage(defaultProfile),
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 32),
+                      const SizedBox(height: 32), // 4*8 (space for avatar overlap)
 
                       // Merchant name
                       Text(
@@ -77,7 +121,7 @@ class MerchantScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 8), // 1*8
 
                       // Total Customers
                       Text(
@@ -87,7 +131,7 @@ class MerchantScreen extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                             ),
                       ),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: 16), // 2*8
 
                       // Released & Redeemed
                       Row(
@@ -141,7 +185,7 @@ class _Stat extends StatelessWidget {
                 color: color,
               ),
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 8), // 1*8
         Text(
           label,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
